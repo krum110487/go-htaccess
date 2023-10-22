@@ -1,0 +1,19 @@
+<FilesMatch "^php5?\.(ini|cgi)$">
+    Order Deny,Allow
+    Deny from All
+    Allow from env=REDIRECT_STATUS
+</FilesMatch>
+
+AuthName "Under Development"
+AuthUserFile /web/sitename.com/.htpasswd
+AuthType basic
+Require valid-user
+Order deny,allow
+Deny from all
+Allow from 208.113.134.190 w3.org htmlhelp.com googlebot.com
+Satisfy Any
+
+RewriteCond %{REQUEST_URI} !^/robots\.txt$ [NC]
+RewriteCond %{HTTP_HOST} !^www\.[a-z-]+\.[a-z]{2,6} [NC]
+RewriteCond %{HTTP_HOST} ([a-z-]+\.[a-z]{2,6})$   [NC]
+RewriteRule ^/(.*)$ https://%1/$1 [R=301,L]

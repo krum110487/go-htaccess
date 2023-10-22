@@ -1,0 +1,77 @@
+#
+# Require (user|group|valid-user) (username|groupname)
+#
+## BASIC PASSWORD PROTECTION
+AuthType basic
+AuthName "prompt"
+AuthUserFile /.htpasswd
+AuthGroupFile /dev/null
+Require valid-user
+
+## ALLOW FROM IP OR VALID PASSWORD
+Require valid-user
+Allow from 192.168.1.23
+Satisfy Any
+
+## PROTECT FILES
+<FilesMatch "\.(htaccess|htpasswd|ini|phps|fla|psd|log|sh)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+## PREVENT HOTLINKING
+SetEnvIfNoCase Referer "^https://www.askapache.com/" good
+SetEnvIfNoCase Referer "^$" good
+<FilesMatch "\.(png|jpg|jpeg|gif|bmp|swf|flv)$">
+Order Deny,Allow
+Deny from all
+Allow from env=good
+ErrorDocument 403 https://www.google.com/intl/en_ALL/images/logo.gif
+ErrorDocument 403 /images/you_bad_hotlinker.gif
+</FilesMatch>
+
+## LIMIT UPLOAD FILE SIZE TO PROTECT AGAINST DOS ATTACK
+#bytes, 0-2147483647(2GB)
+LimitRequestBody 10240000
+
+## MOST SECURE WAY TO REQUIRE SSL
+# https://www.askapache.com/htaccess/apache-ssl-in-htaccess-examples/
+SSLOptions +StrictRequire
+SSLRequireSSL
+SSLRequire %{HTTP_HOST} eq "askapache.com"
+ErrorDocument 403 https://askapache.com
+
+## COMBINED DEVELOPER HTACCESS CODE-USE THIS
+<FilesMatch "\.(flv|gif|jpg|jpeg|png|ico|js|css|pdf|swf|html|htm|txt)$">
+Header set Cache-Control "max-age=5"
+</FilesMatch>
+AuthType basic
+AuthName "Ooops! Temporarily Under Construction..."
+AuthUserFile /.htpasswd
+AuthGroupFile /dev/null
+Require valid-user      # password prompt for everyone else
+Order Deny,Allow
+Deny from all
+Allow from 192.168.64.5   # Your, the developers IP address
+Allow from w3.org      # css/xhtml check jigsaw.w3.org/css-validator/
+Allow from googlebot.com   # Allows google to crawl your pages
+Satisfy Any        # no password required if host/ip is Allowed
+
+## DONT HAVE TO EMPTY CACHE OR RELOAD TO SEE CHANGES
+ExpiresDefault A5 #If using mod_expires
+<FilesMatch "\.(flv|gif|jpg|jpeg|png|ico|js|css|pdf|swf|html|htm|txt)$">
+Header set Cache-Control "max-age=5"
+</FilesMatch>
+
+## ALLOW ACCESS WITH PASSWORD OR NO PASSWORD FOR SPECIFIC IP/HOSTS
+AuthType basic
+AuthName "Ooops! Temporarily Under Construction..."
+AuthUserFile /.htpasswd
+AuthGroupFile /dev/null
+Require valid-user      # password prompt for everyone else
+Order Deny,Allow
+Deny from all
+Allow from 192.168.64.5   # Your, the developers IP address
+Allow from w3.org      # css/xhtml check jigsaw.w3.org/css-validator/
+Allow from googlebot.com   # Allows google to crawl your pages
+Satisfy Any        # no password required if host/ip is Allowed

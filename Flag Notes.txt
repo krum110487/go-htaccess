@@ -1,0 +1,188 @@
+The following document is reference for all keywords which have flags we need to parse.
+
+https://httpd.apache.org/docs/2.4/mod/mod_proxy_fcgi.html
+<Proxy ...>
+
+Simple Flags
+https://httpd.apache.org/docs/2.4/mod/mod_proxy.html
+ProxyPass [path] !|url [key=value [key=value ...]] [nocanon] [interpolate] [noquery]
+ProxyPassMatch [regex] !|url [key=value [key=value ...]]
+ProxySet url key=value [key=value ...]
+
+https://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html
+BalancerMember [balancerurl] url [key=value [key=value ...]]
+BalancerMember "ajp://1.2.3.4:8009"
+BalancerMember "ajp://1.2.3.6:8009" loadfactor=5
+BalancerMember ajp://1.2.3.6:8009 status=+R
+BalancerMember "ajp://1.2.3.5:8009" loadfactor=2.25
+BalancerMember "http://www2.example.com:8080" loadfactor=1
+
+https://httpd.apache.org/docs/2.4/mod/mod_proxy_html.html
+ProxyHTMLURLMap from-pattern to-pattern [flags] [cond]
+ProxyHTMLURLMap http://www.example.com:8087 /translate/
+ProxyHTMLURLMap http://www.example.com:8077 /translate/
+ProxyHTMLURLMap / /translate/
+ProxyHTMLURLMap /translate/ /translate/
+ProxyHTMLURLMap / /translate/ h "${VAR}==value"
+
+https://httpd.apache.org/docs/2.4/mod/mod_reqtimeout.html
+RequestReadTimeout [handshake=timeout[-maxtimeout][,MinRate=rate] [header=timeout[-maxtimeout][,MinRate=rate] [body=timeout[-maxtimeout][,MinRate=rate]
+RequestReadTimeout handshake=5 header=10 body=30
+RequestReadTimeout body=10,MinRate=1000
+RequestReadTimeout header=10-30,MinRate=500
+RequestReadTimeout header=20-40,MinRate=500 body=20,MinRate=500
+RequestReadTimeout stage=10
+RequestReadTimeout handshake=0 header=0 body=0
+RequestReadTimeout stage=timeout,MinRate=data_rate
+RequestReadTimeout stage=timeout-maxtimeout,MinRate=data_rate
+ 
+
+
+https://httpd.apache.org/docs/2.4/mod/mod_session_cookie.html
+SessionCookieName name attributes
+SessionCookieName session path=/private;domain=example.com;httponly;secure;version=1;
+
+SessionCookieName2 name attributes
+SessionCookieName2 session path=/private;domain=example.com;httponly;secure;version=1;
+
+
+https://httpd.apache.org/docs/2.4/mod/mod_session_crypto.html
+SessionCryptoDriver name [param[=value]]
+SessionCryptoDriver nss
+SessionCryptoDriver nss dir=certs
+SessionCryptoDriver nss dir=certs key3=key3.db cert7=cert7.db secmod=secmod
+SessionCryptoDriver nss "dir=My Certs" key3=key3.db cert7=cert7.db secmod=secmod
+SessionCryptoDriver nss noinit
+SessionCryptoDriver openssl engine=name
+
+
+Different type!
+https://httpd.apache.org/docs/2.4/mod/mod_session_dbd.html
+SessionDBDCookieName name attributes
+SessionDBDCookieName session path=/private;domain=example.com;httponly;secure;version=1;
+SessionDBDCookieName session path=/
+
+SessionDBDCookieName2 name attributes
+SessionDBDCookieName2 session path=/private;domain=example.com;httponly;secure;version=1;
+
+
+https://httpd.apache.org/docs/2.4/mod/mod_setenvif.html
+BrowserMatch regex [!]env-variable[=value] [[!]env-variable[=value]] ...
+BrowserMatch ^Mozilla netscape
+BrowserMatch MSIE !netscape
+BrowserMatch Robot is_a_robot
+BrowserMatch ^Mozilla forms jpeg=yes browser=netscape
+BrowserMatch "^Mozilla/[2-3]" tables agif frames javascript
+BrowserMatch MSIE !javascript
+
+BrowserMatchNoCase regex [!]env-variable[=value] [[!]env-variable[=value]] ...
+BrowserMatchNoCase mac platform=macintosh
+BrowserMatchNoCase win platform=windows
+
+SetEnvIf attribute regex [!]env-variable[=value] [[!]env-variable[=value]] ...
+SetEnvIf Request_URI "\.gif$" object_is_image=gif
+SetEnvIf Request_URI "\.jpg$" object_is_image=jpg
+SetEnvIf Request_URI "\.xbm$" object_is_image=xbm
+SetEnvIf Referer www\.mydomain\.example\.com intra_site_referral
+SetEnvIf object_is_image xbm XBIT_PROCESSING=1
+SetEnvIf Request_URI "\.(.*)$" EXTENSION=$1
+SetEnvIf ^TS  ^[a-z]  HAVE_TS
+
+SetEnvIfExpr expr [!]env-variable[=value] [[!]env-variable[=value]] ...
+SetEnvIfExpr "tolower(req('X-Sendfile')) == 'd:\images\very_big.iso')" iso_delivered
+SetEnvIfExpr "-R '10.0.0.0/8' || -R '172.16.0.0/12' || -R '192.168.0.0/16'" rfc1918
+
+SetEnvIfNoCase attribute regex [!]env-variable[=value] [[!]env-variable[=value]] ...
+SetEnvIfNoCase User-Agent Robot is_a_robot
+SetEnvIfNoCase Host Example\.Org site=example
+
+https://httpd.apache.org/docs/2.4/mod/mod_ssl.html
+SSLCARevocationCheck chain|leaf|none [flags ...]
+SSLCARevocationCheck chain no_crl_for_cert_ok
+SSLCARevocationCheck leaf no_crl_for_cert_ok
+SSLCARevocationCheck chain
+SSLCARevocationCheck none
+
+https://httpd.apache.org/docs/2.4/mod/mod_log_debug.html
+LogMessage message [hook=hook] [expr=expression] 
+LogMessage "/foo/ has been requested"
+LogMessage "subrequest to /foo/" hook=type_checker "expr=-T %{IS_SUBREQ}"
+LogMessage "IPv6 timeout from %{REMOTE_ADDR}" "expr=-T %{IPV6} && %{REQUEST_STATUS} = 408"
+LogMessage "%{reqenv:X-Foo}" hook=all
+
+
+https://httpd.apache.org/docs/2.4/mod/mod_log_config.html
+GlobalLog file|pipe format|nickname [env=[!]environment-variable| expr=expression]
+CustomLog file|pipe format|nickname [env=[!]environment-variable| expr=expression]
+CustomLog "logs/access_log" "%h %l %u %t \"%r\" %>s %b"
+CustomLog "gif-requests.log" common env=gif-image
+CustomLog "nongif-requests.log" common env=!gif-image
+CustomLog "referer.log" referer env=!localreferer
+
+https://httpd.apache.org/docs/2.4/mod/mod_filter.html
+FilterProtocol filter-name [provider-name] proto-flags
+FilterProtocol COMPRESS change=yes;byteranges=no
+FilterProtocol COMPRESS  DEFLATE change=yes;byteranges=no
+FilterProtocol downsample "change=yes"
+
+https://httpd.apache.org/docs/2.4/mod/mod_dbd.html
+DBDParams param1=value1[,param2=value2]
+DBDParams host=localhost
+DBDParams host=localhost,dbname=pony
+DBDParams host=localhost,dbname=pony,user=shetland,pass=appaloosa
+
+https://httpd.apache.org/docs/2.4/mod/mod_authn_core.html
+AuthLDAPBindDN cn=youruser,o=ctx
+AuthLDAPBindDN cn=yourotheruser,o=dev
+
+https://httpd.apache.org/docs/2.4/mod/mod_access_compat.html#allow
+Allow from all|host|env=[!]env-variable [host|env=[!]env-variable] ...
+Allow from example.org
+Allow from .net example.edu
+Allow from 10.1.2.3
+Allow from 10 172.20 192.168.2
+Allow from 2001:db8::a00:20ff:fea7:ccea/10
+Allow from env=let_me_in
+
+Deny from all|host|env=[!]env-variable [host|env=[!]env-variable] ...
+Deny from all
+Deny from host
+Deny from env=!var
+Deny from all host
+Deny from env=name1 env=!name2 env=name3
+
+
+
+
+
+NEEDS ITS OWN THING...
+
+https://httpd.apache.org/docs/2.4/mod/mod_rewrite.html
+RewriteCond
+RewriteRule
+
+https://httpd.apache.org/docs/2.4/mod/mod_headers.html
+Header
+RequestHeader 
+
+https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require
+Require
+
+https://httpd.apache.org/docs/2.4/mod/core.html#allowoverride
+AllowOverride 
+
+https://httpd.apache.org/docs/2.4/mod/mod_ext_filter.html
+ExtFilterDefine 
+ExtFilterOptions 
+
+Unrelated, it's own thing:
+https://httpd.apache.org/docs/2.4/mod/mod_substitute.html
+https://httpd.apache.org/docs/2.4/mod/mod_version.html
+https://httpd.apache.org/docs/2.4/mod/mod_mime.html (AddType)
+https://httpd.apache.org/docs/2.4/mod/mod_ldap.html (AuthLDAPURL)
+https://httpd.apache.org/docs/2.4/mod/mod_http2.html (Header)
+
+Test items
+https://httpd.apache.org/docs/2.4/mod/mod_authnz_ldap.html
+https://httpd.apache.org/docs/2.4/mod/mod_info.html
+AddModuleInfo 

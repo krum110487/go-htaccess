@@ -1,0 +1,49 @@
+## REWRITE DEFAULTS
+RewriteEngine On
+RewriteBase /
+
+## REQUIRE SUBDOMAIN
+RewriteCond %{HTTP_HOST} !^$
+RewriteCond %{HTTP_HOST} !^www\.askapache\.com$ [NC]
+RewriteRule ^/(.*)$ https://www.askapache.com/$1 [L,R=301]
+
+## SEO REWRITES
+RewriteRule ^(.*)/ve/(.*)$ $1/voluntary-employee/$2 [L,R=301]
+RewriteRule ^(.*)/hsa/(.*)$ $1/health-saving-account/$2 [L,R=301]
+
+## WORDPRESS
+RewriteCond %{REQUEST_FILENAME} !-f  # Existing File
+RewriteCond %{REQUEST_FILENAME} !-d  # Existing Directory
+RewriteRule . /index.php [L]
+
+## ALTERNATIVE ANTI-HOTLINKING
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?askapache\.com/.*$ [NC]
+RewriteRule ^.*\.(bmp|tif|gif|jpg|jpeg|jpe|png)$ - [F]
+
+## REDIRECT HOTLINKERS
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?askapache\.com/.*$ [NC]
+RewriteRule ^.*\.(bmp|tif|gif|jpg|jpeg|jpe|png)$ https://google.com [R]
+
+## DENY REQUEST BASED ON REQUEST METHOD
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|OPTIONS|HEAD)$ [NC]
+RewriteRule ^.*$ - [F]
+
+## REDIRECT UPLOADS
+RewriteCond %{REQUEST_METHOD} ^(PUT|POST)$ [NC]
+RewriteRule ^(.*)$ /cgi-bin/form-upload-processor.cgi?p=$1 [L,QSA]
+
+## REQUIRE SSL EVEN WHEN MOD_SSL IS NOT LOADED
+RewriteCond %{HTTPS} !=on [NC]
+RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+
+### ALTERNATATIVE TO USING ERRORDOCUMENT
+# https://www.htaccesselite.com/d/htaccess-errordocument-examples-vt11.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ /error.php [L]
+
+## SEO REDIRECTS
+Redirect 301 /2006/oldfile.html https://www.askapache.com/newfile.html
+RedirectMatch 301 /o/(.*)$ https://www.askapache.com/s/dl/$1
