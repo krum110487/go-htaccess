@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"regexp"
 	"strconv"
 	"strings"
 
@@ -95,9 +94,9 @@ func loadDefaultHandlers(hdlrMap map[string]func(string, parser.DirectiveEntry, 
 		}
 
 		ctx.requestConfig.ModRewrite.EngineOn = false
-		if strings.ToLower(de.Params[0]) == "on" {
-			ctx.requestConfig.ModRewrite.EngineOn = true
-		}
+		//if strings.ToLower(de.Params[0]) == "on" {
+		//	ctx.requestConfig.ModRewrite.EngineOn = true
+		//}
 
 		return true, nil
 	}
@@ -121,7 +120,7 @@ func loadDefaultHandlers(hdlrMap map[string]func(string, parser.DirectiveEntry, 
 
 	hdlrMap["RewriteRule"] = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *Context) (bool, error) {
 		//Grab the conditions, then empty the stackGroup
-		conditions := ctx.stackGroup["RewriteCond"]
+		//conditions := ctx.stackGroup["RewriteCond"]
 		ctx.stackGroup["RewriteCond"] = []parser.DirectiveEntry{}
 
 		if !ctx.requestConfig.ModRewrite.EngineOn {
@@ -132,16 +131,19 @@ func loadDefaultHandlers(hdlrMap map[string]func(string, parser.DirectiveEntry, 
 			return false, err
 		}
 
-		res, err := testRewriteConds(conditions, req)
-		if err != nil {
-			return false, err
-		}
+		/*
+			res, err := testRewriteConds(conditions, req)
+			if err != nil {
+				return false, err
+			}
+		*/
 
-		de.Results = res
+		//de.Results = res
 		return true, nil
 	}
 }
 
+/*
 func testRewriteConds(conds []parser.DirectiveEntry, req *http.Request) (bool, error) {
 	result := false
 	for i := len(conds) - 1; i >= 0; i-- {
@@ -163,7 +165,9 @@ func testRewriteConds(conds []parser.DirectiveEntry, req *http.Request) (bool, e
 	}
 	return result, nil
 }
+*/
 
+/*
 func testPattern(cond *parser.RWCondEntry, req *http.Request) (bool, error) {
 	testStr := replaceVariables(req, cond.TestString)
 	ptrnRightArg := cond.Pattern.RightArgument
@@ -188,6 +192,7 @@ func testPattern(cond *parser.RWCondEntry, req *http.Request) (bool, error) {
 		return false, errors.New(fmt.Sprintf("Unhandeled operator %s", cond.Pattern.Operator))
 	}
 }
+*/
 
 func replaceVariables(request *http.Request, str string) string {
 	// Create a map of the available variables and their corresponding values

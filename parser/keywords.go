@@ -8,14 +8,6 @@ var tagDirectiveRegex = `(?i)\b(` +
 	`ProxyMatch|RequireAll|RequireAny|RequireNone|VirtualHost` +
 	`)\b`
 
-var directivesWithFlagRegex = `(?i)^(` +
-	`Allow|AuthLDAPBindDN|BalancerMember|BrowserMatch|BrowserMatchNoCase|` +
-	`CustomLog|DBDParams|Deny|FilterProtocol|GlobalLog|LogMessage|ProxyHTMLURLMap|` +
-	`ProxyPass|ProxyPassMatch|ProxySet|RequestReadTimeout|SessionCookieName|` +
-	`SessionCookieName2|SessionCryptoDriver|SetEnvIf|SetEnvIfExpr|SetEnvIfNoCase|` +
-	`SSLCARevocationCheck` +
-	`)(?:[ \t])`
-
 //Every single directive from the documentation and mods
 //Excluding the tags found above.
 var directiveRegex = `(?i)^(` +

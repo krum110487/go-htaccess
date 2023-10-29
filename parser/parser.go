@@ -15,23 +15,11 @@ var htaLexer = lexer.MustStateful(lexer.Rules{
 		{"LineContinuation", `\/[\r\n]`, nil},
 		{"EOL", `[\r\n]`, nil},
 		{"Comment", `#[^\r\n]*`, nil},
-		//{"Flag", `\[[^\r\n\s\]]*\]\s*$`, nil},
-		//{"QFlag", `"\[[^\r\n\]]*\]\s*"\s*$`, nil},
 		{"QStr", `"(\\"|[^\r\n"])*"`, nil},
 		{"Whitespace", `[ \t]+`, nil},
 		{"TagClose", `\<\/`, lexer.Push("TagClose")},
 		{"TagOpen", `\<`, lexer.Push("TagOpen")},
-		{"DirFlag", directivesWithFlagRegex, lexer.Push("DirFlag")},
 		{"Dir", directiveRegex, nil},
-		{"Str", `[^\s\n\r]+`, nil},
-	},
-	"DirFlag": {
-		{"LineContinuation", `\/[\r\n]`, nil},
-		{"EOL", `[\r\n]`, lexer.Pop()},
-		{"QEqFlag", `("(\\"|[^\r\n"])+=(\\"|[^\r\n"])+"|'(\\'|[^\r\n'])+=(\\'|[^\r\n'])+')`, nil},
-		{"QStr", `"(\\"|[^\r\n"])*"`, nil},
-		{"Whitespace", `[ \t]+`, nil},
-		{"EqFlag", `[^\r\n \t]+=[^\r\n \t]+`, nil},
 		{"Str", `[^\s\n\r]+`, nil},
 	},
 	"TagOpen": {
@@ -54,66 +42,101 @@ type HtaccessAST struct {
 }
 
 type DirectiveEntry struct {
-	Pos         lexer.Position `parser:""                                                json:"pos,omitempty"`
-	IfGroup     *IfEntry       `parser:"(   @@"                                          json:"ifgroup,omitempty"`
-	Tag         *TagEntry      `parser:"  | @@"                                          json:"tag,omitempty"`
-	SetEnvIf    *SetEnvIf      `parser:"  | @@"                                          json:"setEnvIf,omitempty"`
-	RewriteCond *RWCondEntry   `parser:"  | @@"                                          json:"rewriteCond,omitempty"`
-	Name        string         `parser:"  | @Dir"                                        json:"name,omitempty"`
-	Params      []string       `parser:"    @(QStr|Str) @(QStr|Str|QFlag|Flag)?" json:"params,omitempty"`
-	Flags       *Flags         `parser:"    @(QFlag|Flag)?    )"                         json:"flags,omitempty"`
-	Results     bool           `parser:""                                                json:"results,omitempty"`
-}
-
-type RWCondEntry struct {
-	Name       string       `parser:"@('RewriteCond')"       json:"name,omitempty"`
-	TestString string       `parser:"@(QStr|Str)"            json:"testString,omitempty"`
-	Pattern    *CondPattern `parser:"@(QStr|Str|QFlag|Flag)" json:"pattern,omitempty"`
-	Flags      *Flags       `parser:"@(QFlag|Flag)*"         json:"flags,omitempty"`
-}
-
-type SetEnvIf struct {
-	Name     string `parser:"@('SetEnvIf')"   json:"name,omitempty"`
-	Variable string `parser:"@(QStr|Str|Dir)" json:"variable,omitempty"`
-	Value    string `parser:"@(QStr|Str|Dir)" json:"value,omitempty"`
-	Action   string `parser:"@(QStr|Str|Dir)" json:"action,omitempty"`
+	IfGroup *IfEntry        `parser:"(   @@"					json:"ifgroup,omitempty"`
+	Tag     *TagEntry       `parser:"  | @@"					json:"tag,omitempty"`
+	Name    string          `parser:"  | @(Dir|Str) )"			json:"name,omitempty"`
+	Params  []*ParsedString `parser:"@(QStr|Str)*"				json:"params,omitempty"`
+	Results bool            `parser:""							json:"results,omitempty"`
 }
 
 type IfEntry struct {
-	Name       string            `parser:"'<' @('If')"        json:"name,omitempty"`
-	Expression Expression        `parser:"  @QStr"            json:"expression,omitempty"`
-	Dirs       []*DirectiveEntry `parser:"  (   @@"           json:"dirs,omitempty"`
-	IfGroup    *IfEntry          `parser:"    | @@"           json:"ifgroup,omitempty"`
-	Tags       []*TagEntry       `parser:"    | @@  )*"       json:"tags,omitempty"`
-	TagClose   string            `parser:"'</' @TagCloseName" json:"tagclose,omitempty"`
-	ElseIf     []*ElseIfEntry    `parser:"(   @@+"            json:"elseifgroup,omitempty"`
-	Else       *ElseEntry        `parser:"  | @@  )*"         json:"else,omitempty"`
+	Name       string            `parser:"'<' @('If')"			json:"name,omitempty"`
+	Expression Expression        `parser:"  @QStr"				json:"expression,omitempty"`
+	IfGroup    *IfEntry          `parser:"  (   @@"				json:"ifgroup,omitempty"`
+	Dirs       []*DirectiveEntry `parser:"    | @@"				json:"dirs,omitempty"`
+	Tags       []*TagEntry       `parser:"    | @@  )*"			json:"tags,omitempty"`
+	TagClose   string            `parser:"'</' @TagCloseName"	json:"tagclose,omitempty"`
+	ElseIf     []*ElseIfEntry    `parser:"(   @@+"				json:"elseifgroup,omitempty"`
+	Else       *ElseEntry        `parser:"  | @@  )*"			json:"else,omitempty"`
 }
 
 type ElseIfEntry struct {
-	Name       string            `parser:"'<' @('ElseIf')"    json:"name,omitempty"`
-	Expression Expression        `parser:"  @QStr"            json:"expression,omitempty"`
-	Dirs       []*DirectiveEntry `parser:" (   @@"            json:"dirs,omitempty"`
-	IfGroup    *IfEntry          `parser:"   | @@"            json:"ifgroup,omitempty"`
-	Tags       []*TagEntry       `parser:"   | @@  )*"        json:"tags,omitempty"`
-	TagClose   string            `parser:"'</' @TagCloseName" json:"tagclose,omitempty"`
+	Name       string            `parser:"'<' @('ElseIf')"		json:"name,omitempty"`
+	Expression Expression        `parser:"  @QStr"				json:"expression,omitempty"`
+	IfGroup    *IfEntry          `parser:"  (  @@"				json:"ifgroup,omitempty"`
+	Dirs       []*DirectiveEntry `parser:"   | @@"				json:"dirs,omitempty"`
+	Tags       []*TagEntry       `parser:"   | @@  )*"			json:"tags,omitempty"`
+	TagClose   string            `parser:"'</' @TagCloseName"	json:"tagclose,omitempty"`
 }
 
 type ElseEntry struct {
-	Name     string            `parser:"'<' @('Else')"               json:"name,omitempty"`
-	Dirs     []*DirectiveEntry `parser:" (   @@"                     json:"dirs,omitempty"`
-	IfGroup  *IfEntry          `parser:"   | @@"                     json:"ifgroup,omitempty"`
-	Tags     []*TagEntry       `parser:"   | @@  )*"                 json:"tags,omitempty"`
-	TagClose string            `parser:"'</' @TagCloseName"          json:"tagclose,omitempty"`
+	Name     string            `parser:"'<' @('Else')"		json:"name,omitempty"`
+	IfGroup  *IfEntry          `parser:" (   @@"			json:"ifgroup,omitempty"`
+	Dirs     []*DirectiveEntry `parser:"   | @@"			json:"dirs,omitempty"`
+	Tags     []*TagEntry       `parser:"   | @@  )*"		json:"tags,omitempty"`
+	TagClose string            `parser:"'</' @TagCloseName"	json:"tagclose,omitempty"`
 }
 
 type TagEntry struct {
-	Name     string            `parser:"'<' @TagDir"        json:"expression,omitempty"`
-	Params   []string          `parser:"  @(QStr|TagStr)*"  json:"params,omitempty"`
-	Dirs     []*DirectiveEntry `parser:" (   @@"            json:"dirs,omitempty"`
-	IfGroup  *IfEntry          `parser:"   | @@"            json:"ifgroup,omitempty"`
-	Tags     []*TagEntry       `parser:"   | @@  )*"        json:"tags,omitempty"`
-	TagClose string            `parser:"'</' @TagCloseName" json:"tagclose,omitempty"`
+	Name     string            `parser:"'<' @TagDir"		json:"expression,omitempty"`
+	Params   []string          `parser:"  @(QStr|TagStr)*"	json:"params,omitempty"`
+	Dirs     []*DirectiveEntry `parser:" (   @@"			json:"dirs,omitempty"`
+	IfGroup  *IfEntry          `parser:"   | @@"			json:"ifgroup,omitempty"`
+	Tags     []*TagEntry       `parser:"   | @@  )*"		json:"tags,omitempty"`
+	TagClose string            `parser:"'</' @TagCloseName"	json:"tagclose,omitempty"`
+}
+
+type ParsedString struct {
+	RawString    string `json:"rawString,omitempty"`
+	NotOp        bool   `json:"notOp,omitempty"`
+	NotOpString  string `json:"notOpString,omitempty"`
+	VariableName string `json:"variableName,omitempty"`
+	AssignValue  string `json:"assignValue,omitempty"`
+	Flags        *Flags `json:"flags,omitempty"`
+}
+
+func (ps *ParsedString) Capture(values []string) error {
+	strVal := strings.TrimSpace(values[0])
+	ps.RawString = strVal
+
+	//Check if Flag
+	isFlag := false
+	if strings.HasPrefix(strVal, "[") && strings.HasSuffix(strVal, "]") {
+		isFlag = true
+		newFlag := Flags{}
+		newFlag.Capture([]string{strVal})
+		ps.Flags = &newFlag
+	}
+
+	//Check for variables
+	if strings.HasPrefix(strVal, "%{") && strings.HasSuffix(strVal, "}") {
+		ps.VariableName = strVal[2 : len(strVal)-1]
+	} else {
+		//Check for assignment
+		assignment := false
+		values := []string{}
+		if strings.Contains(strVal, "=") {
+			assignment = true
+			values = strings.Split(strVal, "=")
+		}
+
+		//Check for NotOp
+		ps.NotOp = strings.HasPrefix(strVal, "!")
+		if ps.NotOp {
+			ps.NotOpString = strVal[1:]
+			if assignment && !isFlag {
+				ps.VariableName = values[0][1:]
+				ps.AssignValue = values[1]
+			}
+		} else {
+			if assignment && !isFlag {
+				ps.VariableName = values[0]
+				ps.AssignValue = values[1]
+			}
+		}
+	}
+
+	return nil
 }
 
 type Flags struct {
@@ -128,7 +151,7 @@ type FlagParams struct {
 	ParamMap  map[string]string `json:"paramMap,omitempty"`
 }
 
-func (fp *Flags) Capture(values []string) error {
+func (f *Flags) Capture(values []string) error {
 	flagStr := strings.TrimSpace(values[0])
 	flagStr = flagStr[1 : len(flagStr)-1]
 	flagList := strings.Split(flagStr, ",")
@@ -155,7 +178,7 @@ func (fp *Flags) Capture(values []string) error {
 
 		flagMap := make(map[string]FlagParams)
 		flagMap[flag] = params
-		fp.FlagMap = flagMap
+		f.FlagMap = flagMap
 	}
 
 	return nil
@@ -389,7 +412,7 @@ var htaccessParser = participle.MustBuild[HtaccessAST](
 	participle.Elide("TagEnd", "TagOpen", "TagClose", "EOL"),
 	participle.CaseInsensitive("Dir", "TagDir"),
 	trim("Dir"),
-	removeQuotes("QStr", "QFlag"),
+	removeQuotes("QStr"),
 )
 
 func removeQuotes(types ...string) participle.Option {
