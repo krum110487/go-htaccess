@@ -11,17 +11,17 @@ import (
 
 type Mod_cern_meta struct{}
 
-func (c *Mod_cern_meta) dirMetaDir(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_cern_meta) DirMetaDir(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: MetaDir directive
 	return errors.New("MetaDir is not yet implemented")
 }
 
-func (c *Mod_cern_meta) dirMetaFiles(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_cern_meta) DirMetaFiles(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: MetaFiles directive
 	return errors.New("MetaFiles is not yet implemented")
 }
 
-func (c *Mod_cern_meta) dirMetaSuffix(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_cern_meta) DirMetaSuffix(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: MetaSuffix directive
 	return errors.New("MetaSuffix is not yet implemented")
 }

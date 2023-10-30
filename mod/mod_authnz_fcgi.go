@@ -11,12 +11,12 @@ import (
 
 type Mod_authnz_fcgi struct{}
 
-func (c *Mod_authnz_fcgi) dirAuthnzFcgiCheckAuthnProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_authnz_fcgi) DirAuthnzFcgiCheckAuthnProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthnzFcgiCheckAuthnProvider directive
 	return errors.New("AuthnzFcgiCheckAuthnProvider is not yet implemented")
 }
 
-func (c *Mod_authnz_fcgi) dirAuthnzFcgiDefineProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_authnz_fcgi) DirAuthnzFcgiDefineProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthnzFcgiDefineProvider directive
 	return errors.New("AuthnzFcgiDefineProvider is not yet implemented")
 }

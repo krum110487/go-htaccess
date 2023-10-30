@@ -11,12 +11,12 @@ import (
 
 type Mod_socache_redis struct{}
 
-func (c *Mod_socache_redis) dirRedisConnPoolTTL(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_socache_redis) DirRedisConnPoolTTL(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: RedisConnPoolTTL directive
 	return errors.New("RedisConnPoolTTL is not yet implemented")
 }
 
-func (c *Mod_socache_redis) dirRedisTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_socache_redis) DirRedisTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: RedisTimeout directive
 	return errors.New("RedisTimeout is not yet implemented")
 }

@@ -11,7 +11,7 @@ import (
 
 type Mod_suexec struct{}
 
-func (c *Mod_suexec) dirSuexecUserGroup(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_suexec) DirSuexecUserGroup(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SuexecUserGroup directive
 	return errors.New("SuexecUserGroup is not yet implemented")
 }

@@ -11,7 +11,7 @@ import (
 
 type Mod_asis struct{}
 
-func (c *Mod_asis) dirUsage(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_asis) DirUsage(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: Usage directive
 	return errors.New("Usage is not yet implemented")
 }

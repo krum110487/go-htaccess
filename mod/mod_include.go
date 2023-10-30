@@ -11,47 +11,47 @@ import (
 
 type Mod_include struct{}
 
-func (c *Mod_include) dirSSIEndTag(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_include) DirSSIEndTag(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SSIEndTag directive
 	return errors.New("SSIEndTag is not yet implemented")
 }
 
-func (c *Mod_include) dirSSIErrorMsg(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_include) DirSSIErrorMsg(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SSIErrorMsg directive
 	return errors.New("SSIErrorMsg is not yet implemented")
 }
 
-func (c *Mod_include) dirSSIETag(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_include) DirSSIETag(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SSIETag directive
 	return errors.New("SSIETag is not yet implemented")
 }
 
-func (c *Mod_include) dirSSILastModified(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_include) DirSSILastModified(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SSILastModified directive
 	return errors.New("SSILastModified is not yet implemented")
 }
 
-func (c *Mod_include) dirSSILegacyExprParser(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_include) DirSSILegacyExprParser(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SSILegacyExprParser directive
 	return errors.New("SSILegacyExprParser is not yet implemented")
 }
 
-func (c *Mod_include) dirSSIStartTag(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_include) DirSSIStartTag(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SSIStartTag directive
 	return errors.New("SSIStartTag is not yet implemented")
 }
 
-func (c *Mod_include) dirSSITimeFormat(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_include) DirSSITimeFormat(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SSITimeFormat directive
 	return errors.New("SSITimeFormat is not yet implemented")
 }
 
-func (c *Mod_include) dirSSIUndefinedEcho(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_include) DirSSIUndefinedEcho(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SSIUndefinedEcho directive
 	return errors.New("SSIUndefinedEcho is not yet implemented")
 }
 
-func (c *Mod_include) dirXBitHack(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_include) DirXBitHack(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: XBitHack directive
 	return errors.New("XBitHack is not yet implemented")
 }

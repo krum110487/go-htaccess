@@ -11,12 +11,12 @@ import (
 
 type Mod_actions struct{}
 
-func (c *Mod_actions) dirAction(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_actions) DirAction(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: Action directive
 	return errors.New("Action is not yet implemented")
 }
 
-func (c *Mod_actions) dirScript(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_actions) DirScript(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: Script directive
 	return errors.New("Script is not yet implemented")
 }

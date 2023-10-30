@@ -11,7 +11,7 @@ import (
 
 type Mod_info struct{}
 
-func (c *Mod_info) dirAddModuleInfo(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_info) DirAddModuleInfo(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AddModuleInfo directive
 	return errors.New("AddModuleInfo is not yet implemented")
 }

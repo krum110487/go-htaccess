@@ -11,7 +11,7 @@ import (
 
 type Mod_request struct{}
 
-func (c *Mod_request) dirKeptBodySize(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_request) DirKeptBodySize(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: KeptBodySize directive
 	return errors.New("KeptBodySize is not yet implemented")
 }

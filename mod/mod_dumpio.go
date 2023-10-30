@@ -11,12 +11,12 @@ import (
 
 type Mod_dumpio struct{}
 
-func (c *Mod_dumpio) dirDumpIOInput(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_dumpio) DirDumpIOInput(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: DumpIOInput directive
 	return errors.New("DumpIOInput is not yet implemented")
 }
 
-func (c *Mod_dumpio) dirDumpIOOutput(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_dumpio) DirDumpIOOutput(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: DumpIOOutput directive
 	return errors.New("DumpIOOutput is not yet implemented")
 }

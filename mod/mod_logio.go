@@ -11,7 +11,7 @@ import (
 
 type Mod_logio struct{}
 
-func (c *Mod_logio) dirLogIOTrackTTFB(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_logio) DirLogIOTrackTTFB(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: LogIOTrackTTFB directive
 	return errors.New("LogIOTrackTTFB is not yet implemented")
 }

@@ -11,12 +11,12 @@ import (
 
 type Mod_headers struct{}
 
-func (c *Mod_headers) dirHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_headers) DirHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: Header directive
 	return errors.New("Header is not yet implemented")
 }
 
-func (c *Mod_headers) dirRequestHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_headers) DirRequestHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: RequestHeader directive
 	return errors.New("RequestHeader is not yet implemented")
 }

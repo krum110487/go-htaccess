@@ -11,12 +11,12 @@ import (
 
 type Mod_authn_dbm struct{}
 
-func (c *Mod_authn_dbm) dirAuthDBMType(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_authn_dbm) DirAuthDBMType(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthDBMType directive
 	return errors.New("AuthDBMType is not yet implemented")
 }
 
-func (c *Mod_authn_dbm) dirAuthDBMUserFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_authn_dbm) DirAuthDBMUserFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthDBMUserFile directive
 	return errors.New("AuthDBMUserFile is not yet implemented")
 }

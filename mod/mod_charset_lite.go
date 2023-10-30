@@ -11,17 +11,17 @@ import (
 
 type Mod_charset_lite struct{}
 
-func (c *Mod_charset_lite) dirCharsetDefault(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_charset_lite) DirCharsetDefault(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: CharsetDefault directive
 	return errors.New("CharsetDefault is not yet implemented")
 }
 
-func (c *Mod_charset_lite) dirCharsetOptions(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_charset_lite) DirCharsetOptions(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: CharsetOptions directive
 	return errors.New("CharsetOptions is not yet implemented")
 }
 
-func (c *Mod_charset_lite) dirCharsetSourceEnc(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_charset_lite) DirCharsetSourceEnc(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: CharsetSourceEnc directive
 	return errors.New("CharsetSourceEnc is not yet implemented")
 }

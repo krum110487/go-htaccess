@@ -11,17 +11,17 @@ import (
 
 type Mod_authz_dbd struct{}
 
-func (c *Mod_authz_dbd) dirAuthzDBDLoginToReferer(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_authz_dbd) DirAuthzDBDLoginToReferer(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthzDBDLoginToReferer directive
 	return errors.New("AuthzDBDLoginToReferer is not yet implemented")
 }
 
-func (c *Mod_authz_dbd) dirAuthzDBDQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_authz_dbd) DirAuthzDBDQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthzDBDQuery directive
 	return errors.New("AuthzDBDQuery is not yet implemented")
 }
 
-func (c *Mod_authz_dbd) dirAuthzDBDRedirectQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_authz_dbd) DirAuthzDBDRedirectQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthzDBDRedirectQuery directive
 	return errors.New("AuthzDBDRedirectQuery is not yet implemented")
 }

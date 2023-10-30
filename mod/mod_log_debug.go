@@ -11,7 +11,7 @@ import (
 
 type Mod_log_debug struct{}
 
-func (c *Mod_log_debug) dirLogMessage(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_log_debug) DirLogMessage(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: LogMessage directive
 	return errors.New("LogMessage is not yet implemented")
 }

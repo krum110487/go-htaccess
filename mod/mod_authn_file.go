@@ -11,7 +11,7 @@ import (
 
 type Mod_authn_file struct{}
 
-func (c *Mod_authn_file) dirAuthUserFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_authn_file) DirAuthUserFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthUserFile directive
 	return errors.New("AuthUserFile is not yet implemented")
 }

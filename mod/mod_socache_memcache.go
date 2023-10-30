@@ -11,7 +11,7 @@ import (
 
 type Mod_socache_memcache struct{}
 
-func (c *Mod_socache_memcache) dirMemcacheConnTTL(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_socache_memcache) DirMemcacheConnTTL(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: MemcacheConnTTL directive
 	return errors.New("MemcacheConnTTL is not yet implemented")
 }

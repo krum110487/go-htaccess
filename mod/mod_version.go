@@ -11,7 +11,7 @@ import (
 
 type Mod_version struct{}
 
-func (c *Mod_version) dirIfVersion(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_version) DirIfVersion(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: <IfVersion> directive
 	return errors.New("<IfVersion> is not yet implemented")
 }

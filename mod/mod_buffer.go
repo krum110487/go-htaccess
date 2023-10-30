@@ -11,7 +11,7 @@ import (
 
 type Mod_buffer struct{}
 
-func (c *Mod_buffer) dirBufferSize(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_buffer) DirBufferSize(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: BufferSize directive
 	return errors.New("BufferSize is not yet implemented")
 }

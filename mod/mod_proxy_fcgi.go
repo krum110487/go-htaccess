@@ -11,12 +11,12 @@ import (
 
 type Mod_proxy_fcgi struct{}
 
-func (c *Mod_proxy_fcgi) dirProxyFCGIBackendType(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_proxy_fcgi) DirProxyFCGIBackendType(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: ProxyFCGIBackendType directive
 	return errors.New("ProxyFCGIBackendType is not yet implemented")
 }
 
-func (c *Mod_proxy_fcgi) dirProxyFCGISetEnvIf(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_proxy_fcgi) DirProxyFCGISetEnvIf(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: ProxyFCGISetEnvIf directive
 	return errors.New("ProxyFCGISetEnvIf is not yet implemented")
 }

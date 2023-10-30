@@ -11,22 +11,22 @@ import (
 
 type Mod_auth_basic struct{}
 
-func (c *Mod_auth_basic) dirAuthBasicAuthoritative(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_auth_basic) DirAuthBasicAuthoritative(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthBasicAuthoritative directive
 	return errors.New("AuthBasicAuthoritative is not yet implemented")
 }
 
-func (c *Mod_auth_basic) dirAuthBasicFake(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_auth_basic) DirAuthBasicFake(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthBasicFake directive
 	return errors.New("AuthBasicFake is not yet implemented")
 }
 
-func (c *Mod_auth_basic) dirAuthBasicProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_auth_basic) DirAuthBasicProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthBasicProvider directive
 	return errors.New("AuthBasicProvider is not yet implemented")
 }
 
-func (c *Mod_auth_basic) dirAuthBasicUseDigestAlgorithm(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_auth_basic) DirAuthBasicUseDigestAlgorithm(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthBasicUseDigestAlgorithm directive
 	return errors.New("AuthBasicUseDigestAlgorithm is not yet implemented")
 }

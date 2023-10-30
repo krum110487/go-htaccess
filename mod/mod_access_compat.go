@@ -11,22 +11,22 @@ import (
 
 type Mod_access_compat struct{}
 
-func (c *Mod_access_compat) dirAllow(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_access_compat) DirAllow(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: Allow directive
 	return errors.New("Allow is not yet implemented")
 }
 
-func (c *Mod_access_compat) dirDeny(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_access_compat) DirDeny(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: Deny directive
 	return errors.New("Deny is not yet implemented")
 }
 
-func (c *Mod_access_compat) dirOrder(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_access_compat) DirOrder(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: Order directive
 	return errors.New("Order is not yet implemented")
 }
 
-func (c *Mod_access_compat) dirSatisfy(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_access_compat) DirSatisfy(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: Satisfy directive
 	return errors.New("Satisfy is not yet implemented")
 }

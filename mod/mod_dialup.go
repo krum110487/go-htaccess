@@ -11,7 +11,7 @@ import (
 
 type Mod_dialup struct{}
 
-func (c *Mod_dialup) dirModemStandard(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_dialup) DirModemStandard(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: ModemStandard directive
 	return errors.New("ModemStandard is not yet implemented")
 }

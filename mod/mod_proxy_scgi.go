@@ -11,12 +11,12 @@ import (
 
 type Mod_proxy_scgi struct{}
 
-func (c *Mod_proxy_scgi) dirProxySCGIInternalRedirect(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_proxy_scgi) DirProxySCGIInternalRedirect(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: ProxySCGIInternalRedirect directive
 	return errors.New("ProxySCGIInternalRedirect is not yet implemented")
 }
 
-func (c *Mod_proxy_scgi) dirProxySCGISendfile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_proxy_scgi) DirProxySCGISendfile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: ProxySCGISendfile directive
 	return errors.New("ProxySCGISendfile is not yet implemented")
 }

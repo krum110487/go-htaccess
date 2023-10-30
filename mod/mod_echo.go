@@ -11,7 +11,7 @@ import (
 
 type Mod_echo struct{}
 
-func (c *Mod_echo) dirProtocolEcho(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_echo) DirProtocolEcho(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: ProtocolEcho directive
 	return errors.New("ProtocolEcho is not yet implemented")
 }

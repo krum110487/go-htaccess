@@ -11,7 +11,7 @@ import (
 
 type Mod_watchdog struct{}
 
-func (c *Mod_watchdog) dirWatchdogInterval(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_watchdog) DirWatchdogInterval(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: WatchdogInterval directive
 	return errors.New("WatchdogInterval is not yet implemented")
 }

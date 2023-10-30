@@ -11,12 +11,12 @@ import (
 
 type Mod_ident struct{}
 
-func (c *Mod_ident) dirIdentityCheck(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_ident) DirIdentityCheck(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: IdentityCheck directive
 	return errors.New("IdentityCheck is not yet implemented")
 }
 
-func (c *Mod_ident) dirIdentityCheckTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_ident) DirIdentityCheckTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: IdentityCheckTimeout directive
 	return errors.New("IdentityCheckTimeout is not yet implemented")
 }

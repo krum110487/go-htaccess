@@ -11,7 +11,7 @@ import (
 
 type Mod_proxy_connect struct{}
 
-func (c *Mod_proxy_connect) dirAllowCONNECT(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_proxy_connect) DirAllowCONNECT(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AllowCONNECT directive
 	return errors.New("AllowCONNECT is not yet implemented")
 }

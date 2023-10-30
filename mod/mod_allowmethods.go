@@ -11,7 +11,7 @@ import (
 
 type Mod_allowmethods struct{}
 
-func (c *Mod_allowmethods) dirAllowMethods(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_allowmethods) DirAllowMethods(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AllowMethods directive
 	return errors.New("AllowMethods is not yet implemented")
 }

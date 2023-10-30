@@ -11,7 +11,7 @@ import (
 
 type Mod_dav_lock struct{}
 
-func (c *Mod_dav_lock) dirDavGenericLockDB(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_dav_lock) DirDavGenericLockDB(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: DavGenericLockDB directive
 	return errors.New("DavGenericLockDB is not yet implemented")
 }

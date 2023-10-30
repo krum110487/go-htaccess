@@ -11,17 +11,17 @@ import (
 
 type Mod_xml2enc struct{}
 
-func (c *Mod_xml2enc) dirxml2EncAlias(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_xml2enc) Dirxml2EncAlias(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: xml2EncAlias directive
 	return errors.New("xml2EncAlias is not yet implemented")
 }
 
-func (c *Mod_xml2enc) dirxml2EncDefault(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_xml2enc) Dirxml2EncDefault(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: xml2EncDefault directive
 	return errors.New("xml2EncDefault is not yet implemented")
 }
 
-func (c *Mod_xml2enc) dirxml2StartParse(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_xml2enc) Dirxml2StartParse(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: xml2StartParse directive
 	return errors.New("xml2StartParse is not yet implemented")
 }

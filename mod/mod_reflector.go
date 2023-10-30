@@ -11,7 +11,7 @@ import (
 
 type Mod_reflector struct{}
 
-func (c *Mod_reflector) dirReflectorHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_reflector) DirReflectorHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: ReflectorHeader directive
 	return errors.New("ReflectorHeader is not yet implemented")
 }

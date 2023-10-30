@@ -11,12 +11,12 @@ import (
 
 type Mod_sed struct{}
 
-func (c *Mod_sed) dirInputSed(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_sed) DirInputSed(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: InputSed directive
 	return errors.New("InputSed is not yet implemented")
 }
 
-func (c *Mod_sed) dirOutputSed(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_sed) DirOutputSed(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: OutputSed directive
 	return errors.New("OutputSed is not yet implemented")
 }

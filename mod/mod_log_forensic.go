@@ -11,7 +11,7 @@ import (
 
 type Mod_log_forensic struct{}
 
-func (c *Mod_log_forensic) dirForensicLog(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_log_forensic) DirForensicLog(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: ForensicLog directive
 	return errors.New("ForensicLog is not yet implemented")
 }

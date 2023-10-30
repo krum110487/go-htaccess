@@ -11,7 +11,7 @@ import (
 
 type Mod_lbmethod_heartbeat struct{}
 
-func (c *Mod_lbmethod_heartbeat) dirHeartbeatStorage(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_lbmethod_heartbeat) DirHeartbeatStorage(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: HeartbeatStorage directive
 	return errors.New("HeartbeatStorage is not yet implemented")
 }

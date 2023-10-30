@@ -11,7 +11,7 @@ import (
 
 type Mod_mime_magic struct{}
 
-func (c *Mod_mime_magic) dirMimeMagicFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_mime_magic) DirMimeMagicFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: MimeMagicFile directive
 	return errors.New("MimeMagicFile is not yet implemented")
 }

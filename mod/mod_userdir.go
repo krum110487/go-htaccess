@@ -11,7 +11,7 @@ import (
 
 type Mod_userdir struct{}
 
-func (c *Mod_userdir) dirUserDir(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_userdir) DirUserDir(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: UserDir directive
 	return errors.New("UserDir is not yet implemented")
 }

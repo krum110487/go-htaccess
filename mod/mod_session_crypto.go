@@ -11,22 +11,22 @@ import (
 
 type Mod_session_crypto struct{}
 
-func (c *Mod_session_crypto) dirSessionCryptoCipher(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_session_crypto) DirSessionCryptoCipher(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SessionCryptoCipher directive
 	return errors.New("SessionCryptoCipher is not yet implemented")
 }
 
-func (c *Mod_session_crypto) dirSessionCryptoDriver(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_session_crypto) DirSessionCryptoDriver(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SessionCryptoDriver directive
 	return errors.New("SessionCryptoDriver is not yet implemented")
 }
 
-func (c *Mod_session_crypto) dirSessionCryptoPassphrase(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_session_crypto) DirSessionCryptoPassphrase(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SessionCryptoPassphrase directive
 	return errors.New("SessionCryptoPassphrase is not yet implemented")
 }
 
-func (c *Mod_session_crypto) dirSessionCryptoPassphraseFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_session_crypto) DirSessionCryptoPassphraseFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: SessionCryptoPassphraseFile directive
 	return errors.New("SessionCryptoPassphraseFile is not yet implemented")
 }

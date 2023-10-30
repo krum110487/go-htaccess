@@ -11,7 +11,7 @@ import (
 
 type Mod_heartbeat struct{}
 
-func (c *Mod_heartbeat) dirHeartbeatAddress(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_heartbeat) DirHeartbeatAddress(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: HeartbeatAddress directive
 	return errors.New("HeartbeatAddress is not yet implemented")
 }

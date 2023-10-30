@@ -11,7 +11,7 @@ import (
 
 type Mod_authz_groupfile struct{}
 
-func (c *Mod_authz_groupfile) dirAuthGroupFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (c *Mod_authz_groupfile) DirAuthGroupFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
 	//TODO: AuthGroupFile directive
 	return errors.New("AuthGroupFile is not yet implemented")
 }
