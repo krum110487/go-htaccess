@@ -1,52 +1,34 @@
-package main
+package htaccess
 
 import (
 	"errors"
 	"fmt"
 	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 
-	"github.com/krum110487/go-htaccess/config"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
-type Context struct {
-	requestConfig config.CoreConfig
-	runtimeStack  []parser.DirectiveEntry
-	stackGroup    map[string][]parser.DirectiveEntry
-}
-
-func (c *Context) GetGroup(name string) []parser.DirectiveEntry {
-	//Do stuff here
-	return []parser.DirectiveEntry{}
-}
-
-func (c *Context) AddToGroup(name string) {
-	//Add item to map with the results of processing it.
-}
-
-func (c *Context) ClearGroup(name string) {
-	//Empty the array
-}
-
-func (c *Context) DeleteGroup(name string) {
-	//Delete the map item.
-}
-
-func (c *Context) EvaluateGroupBool(name string, bottomUp bool) bool {
-	//Loops through the array and determines if the Group passes.
-	//Check each BooleanResult from the ProcessResults, Or'd or And'd against the next result.
-	//Bottom up simply means traverse the stack backwards.
-	return false
-}
-
 type Htaccess struct {
 	AST            *parser.HtaccessAST
+	Globals        Context
 	Context        Context
 	DirHandlers    map[string]func(string, parser.DirectiveEntry, *http.Request, *Context) (bool, error)
 	DirEvents      map[string]func(string, parser.DirectiveEntry, *http.Request, *Context) (bool, error)
 	DefaultHandler func(string, parser.DirectiveEntry, *http.Request, *Context) (bool, error)
+}
+
+func GetParserWithDefaultHandlers() Htaccess {
+	hta := Htaccess{}
+
+	//Set Default Empty "Stub" handler
+	hta.DefaultHandler = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *Context) (bool, error) {
+		return false, errors.New(fmt.Sprintf("Directive \"%s\" was called, but ignored, it has not been implemented.", s))
+	}
+
+	return hta
 }
 
 func (hta *Htaccess) AddHandler(directives []string, handler func(string, parser.DirectiveEntry, *http.Request, *Context) (bool, error)) {
@@ -167,7 +149,6 @@ func testRewriteConds(conds []parser.DirectiveEntry, req *http.Request) (bool, e
 }
 */
 
-/*
 func testPattern(cond *parser.RWCondEntry, req *http.Request) (bool, error) {
 	testStr := replaceVariables(req, cond.TestString)
 	ptrnRightArg := cond.Pattern.RightArgument
@@ -192,7 +173,6 @@ func testPattern(cond *parser.RWCondEntry, req *http.Request) (bool, error) {
 		return false, errors.New(fmt.Sprintf("Unhandeled operator %s", cond.Pattern.Operator))
 	}
 }
-*/
 
 func replaceVariables(request *http.Request, str string) string {
 	// Create a map of the available variables and their corresponding values
