@@ -5,33 +5,32 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_log_config struct{}
 
-func (c *Mod_log_config) DirBufferedLogs(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_log_config) DirBufferedLogs(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: BufferedLogs directive
 	return errors.New("BufferedLogs is not yet implemented")
 }
 
-func (c *Mod_log_config) DirCustomLog(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_log_config) DirCustomLog(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: CustomLog directive
 	return errors.New("CustomLog is not yet implemented")
 }
 
-func (c *Mod_log_config) DirGlobalLog(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_log_config) DirGlobalLog(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: GlobalLog directive
 	return errors.New("GlobalLog is not yet implemented")
 }
 
-func (c *Mod_log_config) DirLogFormat(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_log_config) DirLogFormat(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: LogFormat directive
 	return errors.New("LogFormat is not yet implemented")
 }
 
-func (c *Mod_log_config) DirTransferLog(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_log_config) DirTransferLog(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: TransferLog directive
 	return errors.New("TransferLog is not yet implemented")
 }

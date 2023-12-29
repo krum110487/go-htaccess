@@ -5,13 +5,12 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_info struct{}
 
-func (c *Mod_info) DirAddModuleInfo(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_info) DirAddModuleInfo(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AddModuleInfo directive
 	return errors.New("AddModuleInfo is not yet implemented")
 }

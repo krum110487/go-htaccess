@@ -5,13 +5,12 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_heartbeat struct{}
 
-func (c *Mod_heartbeat) DirHeartbeatAddress(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_heartbeat) DirHeartbeatAddress(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: HeartbeatAddress directive
 	return errors.New("HeartbeatAddress is not yet implemented")
 }

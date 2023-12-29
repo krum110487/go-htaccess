@@ -5,23 +5,22 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_authz_dbd struct{}
 
-func (c *Mod_authz_dbd) DirAuthzDBDLoginToReferer(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authz_dbd) DirAuthzDBDLoginToReferer(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AuthzDBDLoginToReferer directive
 	return errors.New("AuthzDBDLoginToReferer is not yet implemented")
 }
 
-func (c *Mod_authz_dbd) DirAuthzDBDQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authz_dbd) DirAuthzDBDQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AuthzDBDQuery directive
 	return errors.New("AuthzDBDQuery is not yet implemented")
 }
 
-func (c *Mod_authz_dbd) DirAuthzDBDRedirectQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authz_dbd) DirAuthzDBDRedirectQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AuthzDBDRedirectQuery directive
 	return errors.New("AuthzDBDRedirectQuery is not yet implemented")
 }

@@ -5,18 +5,17 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_ident struct{}
 
-func (c *Mod_ident) DirIdentityCheck(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_ident) DirIdentityCheck(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: IdentityCheck directive
 	return errors.New("IdentityCheck is not yet implemented")
 }
 
-func (c *Mod_ident) DirIdentityCheckTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_ident) DirIdentityCheckTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: IdentityCheckTimeout directive
 	return errors.New("IdentityCheckTimeout is not yet implemented")
 }

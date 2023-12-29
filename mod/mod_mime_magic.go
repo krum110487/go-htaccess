@@ -5,13 +5,12 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_mime_magic struct{}
 
-func (c *Mod_mime_magic) DirMimeMagicFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_mime_magic) DirMimeMagicFile(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: MimeMagicFile directive
 	return errors.New("MimeMagicFile is not yet implemented")
 }

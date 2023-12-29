@@ -21,10 +21,10 @@ Action php5-cgi /bin/php.cgi
 
 # AddHandler allows you to map certain file extensions to "handlers":
 # actions unrelated to filetype. These can be either built into the server
-# or added with the Action directive (see below)
+# or added with the Action directive (below)
 #
 # To use CGI scripts outside of ScriptAliased directories:
-# (You will also need to add "ExecCGI" to the "Options" directive.)
+# (will also need to add "ExecCGI" to the "Options" directive.)
 #
 AddHandler php-cgi .php .inc
 
@@ -54,7 +54,7 @@ AddEncoding x-gzip .gz .tgz
 DefaultType text/html
 
 # Optionally add a line containing the server version and virtual host
-# name to server-generated pages (internal error documents, FTP directory
+# name to server-generated pages (error documents, FTP directory
 # listings, mod_status and mod_info output etc., but not CGI generated
 # documents or custom error documents).
 # Set to "EMail" to also include a mailto: link to the ServerAdmin.

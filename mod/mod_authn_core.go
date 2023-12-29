@@ -5,23 +5,22 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_authn_core struct{}
 
-func (c *Mod_authn_core) DirAuthName(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authn_core) DirAuthName(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AuthName directive
 	return errors.New("AuthName is not yet implemented")
 }
 
-func (c *Mod_authn_core) DirAuthnProviderAlias(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authn_core) DirAuthnProviderAlias(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: <AuthnProviderAlias> directive
 	return errors.New("<AuthnProviderAlias> is not yet implemented")
 }
 
-func (c *Mod_authn_core) DirAuthType(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authn_core) DirAuthType(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AuthType directive
 	return errors.New("AuthType is not yet implemented")
 }

@@ -5,18 +5,17 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_so struct{}
 
-func (c *Mod_so) DirLoadFile(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_so) DirLoadFile(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: LoadFile directive
 	return errors.New("LoadFile is not yet implemented")
 }
 
-func (c *Mod_so) DirLoadModule(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_so) DirLoadModule(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: LoadModule directive
 	return errors.New("LoadModule is not yet implemented")
 }

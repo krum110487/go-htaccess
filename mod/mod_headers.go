@@ -5,18 +5,17 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_headers struct{}
 
-func (c *Mod_headers) DirHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_headers) DirHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: Header directive
 	return errors.New("Header is not yet implemented")
 }
 
-func (c *Mod_headers) DirRequestHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_headers) DirRequestHeader(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: RequestHeader directive
 	return errors.New("RequestHeader is not yet implemented")
 }

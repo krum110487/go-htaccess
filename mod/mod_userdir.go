@@ -5,13 +5,12 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_userdir struct{}
 
-func (c *Mod_userdir) DirUserDir(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_userdir) DirUserDir(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: UserDir directive
 	return errors.New("UserDir is not yet implemented")
 }

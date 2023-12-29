@@ -5,18 +5,17 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_socache_redis struct{}
 
-func (c *Mod_socache_redis) DirRedisConnPoolTTL(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_socache_redis) DirRedisConnPoolTTL(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: RedisConnPoolTTL directive
 	return errors.New("RedisConnPoolTTL is not yet implemented")
 }
 
-func (c *Mod_socache_redis) DirRedisTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_socache_redis) DirRedisTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: RedisTimeout directive
 	return errors.New("RedisTimeout is not yet implemented")
 }

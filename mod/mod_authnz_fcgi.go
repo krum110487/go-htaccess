@@ -5,18 +5,17 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_authnz_fcgi struct{}
 
-func (c *Mod_authnz_fcgi) DirAuthnzFcgiCheckAuthnProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authnz_fcgi) DirAuthnzFcgiCheckAuthnProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AuthnzFcgiCheckAuthnProvider directive
 	return errors.New("AuthnzFcgiCheckAuthnProvider is not yet implemented")
 }
 
-func (c *Mod_authnz_fcgi) DirAuthnzFcgiDefineProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authnz_fcgi) DirAuthnzFcgiDefineProvider(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AuthnzFcgiDefineProvider directive
 	return errors.New("AuthnzFcgiDefineProvider is not yet implemented")
 }

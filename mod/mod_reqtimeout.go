@@ -5,13 +5,12 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_reqtimeout struct{}
 
-func (c *Mod_reqtimeout) DirRequestReadTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_reqtimeout) DirRequestReadTimeout(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: RequestReadTimeout directive
 	return errors.New("RequestReadTimeout is not yet implemented")
 }

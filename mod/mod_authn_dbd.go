@@ -5,18 +5,17 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_authn_dbd struct{}
 
-func (c *Mod_authn_dbd) DirAuthDBDUserPWQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authn_dbd) DirAuthDBDUserPWQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AuthDBDUserPWQuery directive
 	return errors.New("AuthDBDUserPWQuery is not yet implemented")
 }
 
-func (c *Mod_authn_dbd) DirAuthDBDUserRealmQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_authn_dbd) DirAuthDBDUserRealmQuery(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: AuthDBDUserRealmQuery directive
 	return errors.New("AuthDBDUserRealmQuery is not yet implemented")
 }

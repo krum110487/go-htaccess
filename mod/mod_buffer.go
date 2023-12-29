@@ -5,13 +5,12 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/krum110487/go-htaccess"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Mod_buffer struct{}
 
-func (c *Mod_buffer) DirBufferSize(dir parser.DirectiveEntry, req *http.Request, runCtx *htaccess.Context) error {
+func (Mod_buffer) DirBufferSize(dir parser.DirectiveEntry, req *http.Request, runCtx *Context) error {
 	//TODO: BufferSize directive
 	return errors.New("BufferSize is not yet implemented")
 }

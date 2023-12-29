@@ -181,7 +181,7 @@ AddType	text/vtt				vtt
 # do not add functionalit beyond Last-Modified
 # -------------------------------------------------------------------------
 <IfModule mod_headers.c>
-	# Try removing etag headers (if it's coming from proxy for example)
+	# Try removing etag headers (it's coming from proxy for example)
 	Header unset ETag
 </IfModule>
 

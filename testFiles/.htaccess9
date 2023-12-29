@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------
 # .htaccess
 #
-# In Apache HTTP servers, .htaccess (hypertext access) is the 
+# In Apache HTTP servers, .htaccess (access) is the 
 # configuration file that allows for web server configuration.
 #
 # This document includes a number of best practice server rules for 
@@ -118,7 +118,7 @@ AddType text/x-vcard                        vcf
   </IfModule>
 
   # Compress all output labeled with one of the following MIME-types
-  # (for Apache versions below 2.3.7, you don't need to enable `mod_filter`
+  # (Apache versions below 2.3.7, you don't need to enable `mod_filter`
   # and can remove the `<IfModule mod_filter.c>` and `</IfModule>` lines as
   # `AddOutputFilterByType` is still in the core directives)
   <IfModule mod_filter.c>
@@ -147,7 +147,7 @@ AddType text/x-vcard                        vcf
 
 
 # ----------------------------------------------------------------------
-# Expires headers (for better cache control)
+# Expires headers (better cache control)
 # ----------------------------------------------------------------------
 
 # These are pretty far-future expires headers.
@@ -164,7 +164,7 @@ AddType text/x-vcard                        vcf
 # Perhaps better to whitelist expires rules? Perhaps.
   ExpiresDefault                          "access plus 1 month"
 
-# cache.appcache needs re-requests in FF 3.6 (thanks Remy ~Introducing HTML5)
+# cache.appcache needs re-requests in FF 3.6 (Remy ~Introducing HTML5)
   ExpiresByType text/cache-manifest       "access plus 0 seconds"
 
 # Your document html
@@ -179,7 +179,7 @@ AddType text/x-vcard                        vcf
   ExpiresByType application/atom+xml      "access plus 1 hour"
   ExpiresByType application/rss+xml       "access plus 1 hour"
 
-# Favicon (cannot be renamed)
+# Favicon (be renamed)
   ExpiresByType image/x-icon              "access plus 1 week"
 
 # Media: images, video, audio

@@ -411,7 +411,7 @@ RewriteRule .* - [F]
 ## These are sample exceptions to the Advanced Server Protection 3.0
 ## rule set further down this file.
 ##
-## Joomla! Update (core feature)
+## Joomla! Update (feature)
 RewriteRule ^administrator\/components\/com_joomlaupdate\/restore\.php$ - [L]
 ## Akeeba Backup Professional, integrated restoration
 RewriteRule ^administrator\/components\/com_akeeba\/restore\.php$ - [L]
@@ -426,11 +426,11 @@ RewriteCond %{REQUEST_FILENAME} !(\.php)$
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^\.well\-known/ - [L]
 #
-# >> Add more rules for allowing full access (except PHP files) on more directories here
+# >> Add more rules for allowing full access (PHP files) on more directories here
 #
-## Uncomment to allow full access to the cache directory (strongly not recommended!)
+## Uncomment to allow full access to the cache directory (not recommended!)
 #RewriteRule ^cache/ - [L]
-## Uncomment to allow full access to the tmp directory (strongly not recommended!)
+## Uncomment to allow full access to the tmp directory (not recommended!)
 #RewriteRule ^tmp/ - [L]
 #
 # >> Add more full access rules here
@@ -457,7 +457,7 @@ RewriteRule ^administrator/ - [F]
 ## Allow limited access for certain directories with client-accessible content
 RewriteRule ^(components|modules|templates|images|plugins|media|libraries|media/jui/fonts)/.*\.(jpe|jpg|jpeg|jp2|jpe2|png|gif|bmp|css|js|swf|html|mpg|mp3|mpeg|mp4|avi|wav|ogg|ogv|xls|xlsx|doc|docx|ppt|pptx|zip|rar|pdf|xps|txt|7z|svg|odt|ods|odp|flv|mov|ico|htm|ttf|woff|woff2|eot|JPG|JPEG|PNG|GIF|CSS|JS|TTF|WOFF|WOFF2|EOT|ico|ICO)$ - [L]
 RewriteRule ^(components|modules|templates|images|plugins|media|libraries|media/jui/fonts)/ - [F]
-## Disallow front-end access for certain Joomla! system directories (unless access to their files is allowed above)
+## Disallow front-end access for certain Joomla! system directories (access to their files is allowed above)
 RewriteRule ^includes/js/ - [L]
 RewriteRule ^(cache|includes|language|logs|log|tmp)/ - [F]
 RewriteRule ^(configuration\.php|CONTRIBUTING\.md|htaccess\.txt|joomla\.xml|LICENSE\.txt|phpunit\.xml|README\.txt|web\.config\.txt) - [F]
