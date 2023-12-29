@@ -4,34 +4,95 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"regexp"
+	"reflect"
 	"strconv"
 	"strings"
 
+	"github.com/krum110487/go-htaccess/mod"
 	"github.com/krum110487/go-htaccess/parser"
 )
 
 type Htaccess struct {
 	AST            *parser.HtaccessAST
-	Globals        Context
-	Context        Context
-	DirHandlers    map[string]func(string, parser.DirectiveEntry, *http.Request, *Context) (bool, error)
-	DirEvents      map[string]func(string, parser.DirectiveEntry, *http.Request, *Context) (bool, error)
-	DefaultHandler func(string, parser.DirectiveEntry, *http.Request, *Context) (bool, error)
+	Globals        mod.Context
+	Context        mod.Context
+	DirHandlers    map[string]func(string, parser.DirectiveEntry, *http.Request, *mod.Context) (bool, error)
+	DirEvents      map[string]func(string, parser.DirectiveEntry, *http.Request, *mod.Context) (bool, error)
+	DefaultHandler func(string, parser.DirectiveEntry, *http.Request, *mod.Context) (bool, error)
 }
 
-func GetParserWithDefaultHandlers() Htaccess {
+func New() *Htaccess {
 	hta := Htaccess{}
 
 	//Set Default Empty "Stub" handler
-	hta.DefaultHandler = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *Context) (bool, error) {
+	hta.DefaultHandler = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *mod.Context) (bool, error) {
 		return false, errors.New(fmt.Sprintf("Directive \"%s\" was called, but ignored, it has not been implemented.", s))
 	}
 
-	return hta
+	return &hta
 }
 
-func (hta *Htaccess) AddHandler(directives []string, handler func(string, parser.DirectiveEntry, *http.Request, *Context) (bool, error)) {
+func (hta *Htaccess) AddModules(modules ...any) {
+	for _, m := range modules {
+		fmt.Println(m)
+	}
+}
+
+func (Htaccess) GetFunctions(interfList ...any) map[string]func(*mod.Context) error {
+	flist := map[string]func(*mod.Context) error{}
+	for _, x := range interfList {
+		v := reflect.ValueOf(x)
+		t := v.Type()
+		if t.Kind() != reflect.Ptr {
+			v = reflect.New(t)
+			t = v.Type()
+		}
+
+		for i := 0; i < t.NumMethod(); i++ {
+			name := strings.ToLower(t.Method(i).Name)
+			if strings.HasPrefix(name, "dir") {
+				name = name[3:]
+				f := v.Method(i).Interface()
+				if v, ok := f.(func(*mod.Context) error); ok {
+					flist[name] = v
+				}
+			}
+		}
+	}
+	return flist
+}
+
+func (hta *Htaccess) AddAllModules() {
+	hta.AddModules(
+		mod.Core{}, mod.Event{}, mod.Worker{}, mod.Mod_access_compat{}, mod.Mod_actions{}, mod.Mod_alias{},
+		mod.Mod_allowmethods{}, mod.Mod_asis{}, mod.Mod_auth_basic{}, mod.Mod_auth_digest{}, mod.Mod_auth_form{},
+		mod.Mod_authn_anon{}, mod.Mod_authn_core{}, mod.Mod_authn_dbd{}, mod.Mod_authn_dbm{}, mod.Mod_authn_file{},
+		mod.Mod_authn_socache{}, mod.Mod_authnz_fcgi{}, mod.Mod_authnz_ldap{}, mod.Mod_authz_core{}, mod.Mod_authz_dbd{},
+		mod.Mod_authz_host{}, mod.Mod_authz_owner{}, mod.Mod_authz_user{}, mod.Mod_autoindex{}, mod.Mod_brotli{},
+		mod.Mod_buffer{}, mod.Mod_cache{}, mod.Mod_cache_disk{}, mod.Mod_cache_socache{}, mod.Mod_cern_meta{},
+		mod.Mod_cgi{}, mod.Mod_cgid{}, mod.Mod_charset_lite{}, mod.Mod_data{}, mod.Mod_dav{}, mod.Mod_dav_fs{},
+		mod.Mod_dav_lock{}, mod.Mod_dbd{}, mod.Mod_deflate{}, mod.Mod_dialup{}, mod.Mod_dir{}, mod.Mod_dumpio{},
+		mod.Mod_echo{}, mod.Mod_env{}, mod.Mod_expires{}, mod.Mod_ext_filter{}, mod.Mod_file_cache{}, mod.Mod_filter{},
+		mod.Mod_headers{}, mod.Mod_heartbeat{}, mod.Mod_heartmonitor{}, mod.Mod_http2{}, mod.Mod_ident{}, mod.Mod_imagemap{},
+		mod.Mod_include{}, mod.Mod_info{}, mod.Mod_isapi{}, mod.Mod_lbmethod_bybusyness{}, mod.Mod_lbmethod_byrequests{},
+		mod.Mod_lbmethod_bytraffic{}, mod.Mod_lbmethod_heartbeat{}, mod.Mod_ldap{}, mod.Mod_log_config{}, mod.Mod_log_debug{},
+		mod.Mod_log_forensic{}, mod.Mod_logio{}, mod.Mod_lua{}, mod.Mod_macro{}, mod.Mod_md{}, mod.Mod_mime{},
+		mod.Mod_mime_magic{}, mod.Mod_negotiation{}, mod.Mod_nw_ssl{}, mod.Mod_privileges{}, mod.Mod_privileges{},
+		mod.Mod_proxy{}, mod.Mod_proxy_ajp{}, mod.Mod_proxy_balancer{}, mod.Mod_proxy_connect{}, mod.Mod_proxy_express{},
+		mod.Mod_proxy_fcgi{}, mod.Mod_proxy_fdpass{}, mod.Mod_proxy_ftp{}, mod.Mod_proxy_hcheck{}, mod.Mod_proxy_html{},
+		mod.Mod_proxy_http{}, mod.Mod_proxy_http2{}, mod.Mod_proxy_scgi{}, mod.Mod_proxy_uwsgi{}, mod.Mod_proxy_wstunnel{},
+		mod.Mod_ratelimit{}, mod.Mod_reflector{}, mod.Mod_remoteip{}, mod.Mod_reqtimeout{}, mod.Mod_request{},
+		mod.Mod_rewrite{}, mod.Mod_sed{}, mod.Mod_session{}, mod.Mod_session_cookie{}, mod.Mod_session_crypto{},
+		mod.Mod_session_dbd{}, mod.Mod_setenvif{}, mod.Mod_slotmem_plain{}, mod.Mod_slotmem_shm{}, mod.Mod_so{},
+		mod.Mod_socache_dbm{}, mod.Mod_socache_dc{}, mod.Mod_socache_memcache{}, mod.Mod_socache_redis{},
+		mod.Mod_socache_shmcb{}, mod.Mod_speling{}, mod.Mod_ssl{}, mod.Mod_status{}, mod.Mod_substitute{},
+		mod.Mod_suexec{}, mod.Mod_systemd{}, mod.Mod_tls{}, mod.Mod_unique_id{}, mod.Mod_unixd{}, mod.Mod_userdir{},
+		mod.Mod_usertrack{}, mod.Mod_version{}, mod.Mod_vhost_alias{}, mod.Mod_watchdog{}, mod.Mod_xml2enc{},
+		mod.Mpmt_os2{}, mod.Mpm_common{}, mod.Mpm_netware{}, mod.Mpm_winnt{}, mod.Prefork{}, mod.Worker{},
+	)
+}
+
+func (hta *Htaccess) AddHandler(directives []string, handler func(string, parser.DirectiveEntry, *http.Request, *mod.Context) (bool, error)) {
 	for _, dir := range directives {
 		hta.DirHandlers[dir] = handler
 	}
@@ -53,9 +114,9 @@ func ParseString(fileContents string) (Htaccess, error) {
 	if err != nil {
 		return Htaccess{}, err
 	}
-	hta.Context = Context{}
+	hta.Context = mod.Context{}
 
-	hta.DefaultHandler = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *Context) (bool, error) {
+	hta.DefaultHandler = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *mod.Context) (bool, error) {
 		return false, errors.New(fmt.Sprintf("Directive \"%s\" was called, but ignored, it has not been implemented.", s))
 	}
 
@@ -64,18 +125,18 @@ func ParseString(fileContents string) (Htaccess, error) {
 	return hta, nil
 }
 
-func loadDefaultHandlers(hdlrMap map[string]func(string, parser.DirectiveEntry, *http.Request, *Context) (bool, error)) {
-	hdlrMap["if"] = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *Context) (bool, error) {
+func loadDefaultHandlers(hdlrMap map[string]func(string, parser.DirectiveEntry, *http.Request, *mod.Context) (bool, error)) {
+	hdlrMap["if"] = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *mod.Context) (bool, error) {
 		return de.IfGroup.Expression.Resolve()
 	}
 	hdlrMap["elseif"] = hdlrMap["if"]
 
-	hdlrMap["RewriteEngine"] = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *Context) (bool, error) {
+	hdlrMap["RewriteEngine"] = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *mod.Context) (bool, error) {
 		if err := paramCheckPass(de, 1, 1); err != nil {
 			return false, err
 		}
 
-		ctx.requestConfig.ModRewrite.EngineOn = false
+		//ctx.requestConfig.ModRewrite.EngineOn = false
 		//if strings.ToLower(de.Params[0]) == "on" {
 		//	ctx.requestConfig.ModRewrite.EngineOn = true
 		//}
@@ -83,11 +144,11 @@ func loadDefaultHandlers(hdlrMap map[string]func(string, parser.DirectiveEntry, 
 		return true, nil
 	}
 
-	hdlrMap["RewriteCond"] = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *Context) (bool, error) {
+	hdlrMap["RewriteCond"] = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *mod.Context) (bool, error) {
 		//TODO: Should this error?
-		if !ctx.requestConfig.ModRewrite.EngineOn {
-			return true, nil
-		}
+		//if !ctx.requestConfig.ModRewrite.EngineOn {
+		//	return true, nil
+		//}
 
 		if err := paramCheckPass(de, 2, 2); err != nil {
 			return false, err
@@ -96,18 +157,18 @@ func loadDefaultHandlers(hdlrMap map[string]func(string, parser.DirectiveEntry, 
 		//TODO: Do the RewriteCond logic check and set the results before putting it on the stack group.
 		de.Results = true
 
-		ctx.stackGroup["RewriteCond"] = append(ctx.stackGroup["RewriteCond"], de)
+		//ctx.stackGroup["RewriteCond"] = append(ctx.stackGroup["RewriteCond"], de)
 		return true, nil
 	}
 
-	hdlrMap["RewriteRule"] = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *Context) (bool, error) {
+	hdlrMap["RewriteRule"] = func(s string, de parser.DirectiveEntry, req *http.Request, ctx *mod.Context) (bool, error) {
 		//Grab the conditions, then empty the stackGroup
 		//conditions := ctx.stackGroup["RewriteCond"]
-		ctx.stackGroup["RewriteCond"] = []parser.DirectiveEntry{}
+		//ctx.stackGroup["RewriteCond"] = []parser.DirectiveEntry{}
 
-		if !ctx.requestConfig.ModRewrite.EngineOn {
-			return true, nil
-		}
+		//if !ctx.requestConfig.ModRewrite.EngineOn {
+		//	return true, nil
+		//}
 
 		if err := paramCheckPass(de, 2, 2); err != nil {
 			return false, err
@@ -149,6 +210,7 @@ func testRewriteConds(conds []parser.DirectiveEntry, req *http.Request) (bool, e
 }
 */
 
+/*
 func testPattern(cond *parser.RWCondEntry, req *http.Request) (bool, error) {
 	testStr := replaceVariables(req, cond.TestString)
 	ptrnRightArg := cond.Pattern.RightArgument
@@ -173,6 +235,7 @@ func testPattern(cond *parser.RWCondEntry, req *http.Request) (bool, error) {
 		return false, errors.New(fmt.Sprintf("Unhandeled operator %s", cond.Pattern.Operator))
 	}
 }
+*/
 
 func replaceVariables(request *http.Request, str string) string {
 	// Create a map of the available variables and their corresponding values
